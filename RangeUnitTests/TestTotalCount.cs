@@ -5,7 +5,7 @@ using RangeTrees;
 namespace RangeUnitTests
 {
     [TestClass]
-    public class UnitTest1
+    public class TestTotalCount
     {
         [TestMethod]
         public void TestMethod1()

@@ -1,6 +1,6 @@
 ﻿namespace RangeTrees
 {
-    class BBalphaRangeTree : IRangeTree
+    public class BBalphaRangeTree : IRangeTree
     {
         private Node root;
 

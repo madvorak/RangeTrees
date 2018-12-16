@@ -68,5 +68,73 @@
             // TODO backpropagation of +1 count
             // TODO BB-alpha balancing
         }
+
+        public int RangeCount(int xMin, int xMax, int yMin, int yMax)
+        {
+            // TODO what if any child is NULL
+            if (IsX)
+            {
+                if (xMax < Value)
+                {
+                    return LeftChild.RangeCount(xMin, xMax, yMin, yMax);
+                }
+                if (xMin > Value)
+                {
+                    return RightChild.RangeCount(xMin, xMax, yMin, yMax);
+                }
+
+                return LeftChild.CountLeftX(xMin, yMin, yMax) + RightChild.CountRightX(xMax, yMin, yMax);
+            }
+            else
+            {
+                if (yMax < Value)
+                {
+                    return LeftChild.RangeCount(xMin, xMax, yMin, yMax);
+                }
+                if (yMin > Value)
+                {
+                    return RightChild.RangeCount(xMin, xMax, yMin, yMax);
+                }
+
+                return LeftChild.CountLeftY(yMin) + RightChild.CountRightY(yMax);
+            }
+        }
+
+        private int CountLeftX(int xMin, int yMin, int yMax)
+        {
+            if (xMin > Value)
+            {
+                return RightChild.CountLeftX(xMin, yMin, yMax);
+            }
+            else
+            {
+                // TODO the +1 should depend on Y
+                return LeftChild.CountLeftX(xMin, yMin, yMax) + RightChild.RangeCount(0, 0, yMin, yMax) + 1;
+            }
+        }
+
+        private int CountRightX(int xMax, int yMin, int yMax)
+        {
+            // TODO
+            return 0;
+        }
+
+        private int CountLeftY(int yMin)
+        {
+            if (yMin > Value)
+            {
+                return RightChild.CountLeftY(yMin);
+            }
+            else
+            {
+                return LeftChild.CountLeftY(yMin) + RightChild.ElementCount + 1;
+            }
+        }
+
+        private int CountRightY(int yMax)
+        {
+            // TODO
+            return 0;
+        }
     }
 }

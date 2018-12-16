@@ -3,10 +3,12 @@
     public class BBalphaRangeTree : IRangeTree
     {
         private Node root;
+        private double alpha;
 
-        public BBalphaRangeTree()
+        public BBalphaRangeTree(double BBalpha = 0.7)
         {
             root = null;
+            alpha = BBalpha;
         }
 
         public void Insert(int x, int y)

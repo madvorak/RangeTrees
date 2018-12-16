@@ -7,6 +7,8 @@ namespace RangeUnitTests
     [TestClass]
     public class TestTotalCount
     {
+        private static Random rng = new Random();
+
         [TestMethod]
         public void TestMethod1()
         {
@@ -30,6 +32,18 @@ namespace RangeUnitTests
             for (int i = 0; i < count; i++)
             {
                 range.Insert(i, i);
+            }
+            Assert.AreEqual(count, range.RangeCount(int.MinValue, int.MaxValue, int.MinValue, int.MaxValue));
+        }
+
+        [TestMethod]
+        public void TestMethod4()
+        {
+            IRangeTree range = new BBalphaRangeTree();
+            int count = 123456;
+            for (int i = 0; i < count; i++)
+            {
+                range.Insert(rng.Next(count), i);
             }
             Assert.AreEqual(count, range.RangeCount(int.MinValue, int.MaxValue, int.MinValue, int.MaxValue));
         }

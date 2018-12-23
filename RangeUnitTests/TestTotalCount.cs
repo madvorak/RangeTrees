@@ -8,44 +8,47 @@ namespace RangeUnitTests
     public class TestTotalCount
     {
         private static Random rng = new Random();
+        private IRangeTree tree;
+
+        [TestInitialize]
+        public void Init()
+        {
+            tree = new DummyTree();
+        }
 
         [TestMethod]
         public void TestMethod1()
         {
-            IRangeTree range = new BBalphaRangeTree();
-            Assert.AreEqual(0, range.RangeCount(int.MinValue, int.MaxValue, int.MinValue, int.MaxValue));
+            Assert.AreEqual(0, tree.RangeCount(int.MinValue, int.MaxValue, int.MinValue, int.MaxValue));
         }
 
         [TestMethod]
         public void TestMethod2()
         {
-            IRangeTree range = new BBalphaRangeTree();
-            range.Insert(0, 0);
-            Assert.AreEqual(1, range.RangeCount(int.MinValue, int.MaxValue, int.MinValue, int.MaxValue));
+            tree.Insert(0, 0);
+            Assert.AreEqual(1, tree.RangeCount(int.MinValue, int.MaxValue, int.MinValue, int.MaxValue));
         }
 
         [TestMethod]
         public void TestMethod3()
         {
-            IRangeTree range = new BBalphaRangeTree();
             int count = 42;
             for (int i = 0; i < count; i++)
             {
-                range.Insert(i, i);
+                tree.Insert(i, i);
             }
-            Assert.AreEqual(count, range.RangeCount(int.MinValue, int.MaxValue, int.MinValue, int.MaxValue));
+            Assert.AreEqual(count, tree.RangeCount(int.MinValue, int.MaxValue, int.MinValue, int.MaxValue));
         }
 
         [TestMethod]
         public void TestMethod4()
         {
-            IRangeTree range = new BBalphaRangeTree();
             int count = 123456;
             for (int i = 0; i < count; i++)
             {
-                range.Insert(rng.Next(count), i);
+                tree.Insert(rng.Next(count), rng.Next(count));
             }
-            Assert.AreEqual(count, range.RangeCount(int.MinValue, int.MaxValue, int.MinValue, int.MaxValue));
+            Assert.AreEqual(count, tree.RangeCount(int.MinValue, int.MaxValue, int.MinValue, int.MaxValue));
         }
     }
 }

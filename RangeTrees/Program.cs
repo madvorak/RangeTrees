@@ -12,7 +12,7 @@ namespace RangeTrees
 
         static void Main(string[] args)
         {
-            IRangeTree tree = new BBalphaRangeTree();
+            IRangeTree tree = null; // new BBalphaRangeTree();
             
             while (true)
             {
@@ -22,7 +22,7 @@ namespace RangeTrees
                 {
                     case '#':
                         printResults();
-                        tree = new BBalphaRangeTree();
+                        tree = null; // new BBalphaRangeTree();
                         currentSize = int.Parse(tokens[1]);
                         break;
                     case 'I':

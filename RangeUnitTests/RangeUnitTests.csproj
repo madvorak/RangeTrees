@@ -48,7 +48,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TestAxisX.cs" />
     <Compile Include="TestOnePoint.cs" />
+    <Compile Include="TestRectangle.cs" />
     <Compile Include="TestTotalCount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

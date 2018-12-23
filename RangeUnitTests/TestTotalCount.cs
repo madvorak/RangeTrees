@@ -36,7 +36,7 @@ namespace RangeUnitTests
         [TestMethod]
         public void TotalCount_3_Diagonal()
         {
-            int count = 42;
+            const int count = 42;
             for (int i = 0; i < count; i++)
             {
                 tree.Insert(i, i);
@@ -47,7 +47,7 @@ namespace RangeUnitTests
         [TestMethod]
         public void TotalCount_4_Duplicate()
         {
-            int count = 42;
+            const int count = 42;
             for (int i = 0; i < count; i++)
             {
                 tree.Insert(0, 0);
@@ -59,7 +59,7 @@ namespace RangeUnitTests
         public void TotalCount_5_RandomPoints()
         {
             Random rng = new Random();
-            int count = 123456;
+            const int count = 123456;
             for (int i = 0; i < count; i++)
             {
                 tree.Insert(rng.Next(count), rng.Next(count));

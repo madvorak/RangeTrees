@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RangeTrees;
 
@@ -175,8 +177,8 @@ namespace RangeUnitTests
         [TestMethod]
         public void Rectangle_20_ManyPointsRandom()
         {
-            const int count = 300;
-            const int limit = 5;
+            const int count = 100000;
+            const int limit = 10;
             int xStep = xHigh - xLow;
             int yStep = yHigh - yLow;
             int xStart = xLow - limit * xStep;
@@ -197,6 +199,92 @@ namespace RangeUnitTests
                 }
             }
             Assert.AreEqual(inside, countRectangle());
+        }
+
+        [TestMethod]
+        public void Rectangle_21_ManyPointsLatticeRandom()
+        {
+            const int limit = 50;
+            int xStep = xHigh - xLow;
+            int yStep = yHigh - yLow;
+            int xStart = xLow - limit * xStep;
+            int xStop = xHigh + limit * xStep;
+            int yStart = yLow - limit * yStep;
+            int yStop = yHigh + limit * yStep;
+            List<Tuple<int, int>> points = new List<Tuple<int, int>>();
+
+            for (int i = xStart; i <= xStop; i += xStep)
+            {
+                for (int j = yStart; j <= yStop; j += yStep)
+                {
+                    points.Add(new Tuple<int, int>(i, j));
+                }
+            }
+
+            Random rng = new Random();
+            foreach (var point in points.OrderBy(_ => rng.Next()))
+            {
+                tree.Insert(point.Item1, point.Item2);
+            }
+            Assert.AreEqual(4, countRectangle());
+        }
+
+        [TestMethod]
+        public void Rectangle_22_ManyPointsDiagonalRandom()
+        {
+            const int limit = 500;
+            const int inner = 10;
+            int xStep = (xHigh - xLow) / inner;
+            int yStep = (yHigh - yLow) / inner;
+            int xStart = xLow - limit * xStep;
+            int xStop = xHigh + limit * xStep;
+            int yStart = yLow - limit * yStep;
+            int yStop = yHigh + limit * yStep;
+            List<Tuple<int, int>> points = new List<Tuple<int, int>>();
+
+            int j = yStart;
+            for (int i = xStart; i < xStop; i += xStep)
+            {
+                points.Add(new Tuple<int, int>(i, j));
+                j += yStep;
+            }
+            Assert.AreEqual(yStop, j);
+
+            Random rng = new Random();
+            foreach (var point in points.OrderBy(_ => rng.Next()))
+            {
+                tree.Insert(point.Item1, point.Item2);
+            }
+            Assert.AreEqual(inner + 1, countRectangle());
+        }
+
+        [TestMethod]
+        public void Rectangle_23_ManyPointsAntiDiagonalRandom()
+        {
+            const int limit = 500;
+            const int inner = 10;
+            int xStep = (xHigh - xLow) / inner;
+            int yStep = (yHigh - yLow) / inner;
+            int xStart = xLow - limit * xStep;
+            int xStop = xHigh + limit * xStep;
+            int yStart = yLow - limit * yStep;
+            int yStop = yHigh + limit * yStep;
+            List<Tuple<int, int>> points = new List<Tuple<int, int>>();
+
+            int j = yStop;
+            for (int i = xStart; i < xStop; i += xStep)
+            {
+                points.Add(new Tuple<int, int>(i, j));
+                j -= yStep;
+            }
+            Assert.AreEqual(yStart, j);
+
+            Random rng = new Random();
+            foreach (var point in points.OrderBy(_ => rng.Next()))
+            {
+                tree.Insert(point.Item1, point.Item2);
+            }
+            Assert.AreEqual(inner + 1, countRectangle());
         }
     }
 }

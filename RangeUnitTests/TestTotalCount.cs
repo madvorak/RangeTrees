@@ -45,7 +45,40 @@ namespace RangeUnitTests
         }
 
         [TestMethod]
-        public void TotalCount_4_Duplicate()
+        public void TotalCount_4_DiagonalBackwards()
+        {
+            const int count = 42;
+            for (int i = count; i > 0; i--)
+            {
+                tree.Insert(i, i);
+            }
+            Assert.AreEqual(count, countAll());
+        }
+
+        [TestMethod]
+        public void TotalCount_5_AntiDiagonal()
+        {
+            const int count = 42;
+            for (int i = 0; i < count; i++)
+            {
+                tree.Insert(i, count - i);
+            }
+            Assert.AreEqual(count, countAll());
+        }
+
+        [TestMethod]
+        public void TotalCount_6_AntiDiagonalBackwards()
+        {
+            const int count = 42;
+            for (int i = count; i > 0; i--)
+            {
+                tree.Insert(i, count - i);
+            }
+            Assert.AreEqual(count, countAll());
+        }
+
+        [TestMethod]
+        public void TotalCount_7_Duplicate()
         {
             const int count = 42;
             for (int i = 0; i < count; i++)
@@ -56,10 +89,10 @@ namespace RangeUnitTests
         }
 
         [TestMethod]
-        public void TotalCount_5_RandomPoints()
+        public void TotalCount_8_RandomPoints()
         {
             Random rng = new Random();
-            const int count = 1234;
+            const int count = 123456;
             for (int i = 0; i < count; i++)
             {
                 tree.Insert(rng.Next(count), rng.Next(count));
@@ -68,12 +101,12 @@ namespace RangeUnitTests
         }
 
         [TestMethod]
-        public void TotalCount_6_RepeatedTest()
+        public void TotalCount_9_RepeatedTest()
         {
             const int count = 10;
             for (int i = 0; i < count; i++)
             {
-                tree.Insert(i, count - i);
+                tree.Insert(i, i);
             }
             Assert.AreEqual(count, countAll());
             Assert.AreEqual(count, countAll());

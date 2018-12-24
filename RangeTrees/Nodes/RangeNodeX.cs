@@ -13,7 +13,31 @@
 
         public void Insert(int x, int y)
         {
-            throw new System.NotImplementedException();
+            if (x <= MiddleX)
+            {
+                if (leftChild == null)
+                {
+                    leftChild = new RangeNodeX(x, y);
+                }
+                else
+                {
+                    leftChild.Insert(x, y);
+                }
+            }
+            else
+            {
+                if (rightChild == null)
+                {
+                    rightChild = new RangeNodeX(x, y);
+                }
+                else
+                {
+                    rightChild.Insert(x, y);
+                }
+            }
+
+            tree.Insert(x, y);
+            Size++;
         }
 
         public int Query(int xMin, int xMax, int yMin, int yMax)

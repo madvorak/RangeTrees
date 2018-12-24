@@ -88,7 +88,7 @@ namespace RangeUnitTests
         [TestMethod]
         public void OnePoint_10_Lattice()
         {
-            int limit = 100;
+            int limit = 20;
             for (int i = x - limit; i <= x + limit; i++)
             {
                 for (int j = y - limit; j <= y + limit; j++)

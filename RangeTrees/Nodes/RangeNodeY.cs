@@ -13,7 +13,30 @@
 
         public void Insert(int x, int y)
         {
-            throw new System.NotImplementedException();
+            if (y <= CoordY)
+            {
+                if (leftChild == null)
+                {
+                    leftChild = new RangeNodeY(x, y);
+                }
+                else
+                {
+                    leftChild.Insert(x, y);
+                }
+            }
+            else
+            {
+                if (rightChild == null)
+                {
+                    rightChild = new RangeNodeY(x, y);
+                }
+                else
+                {
+                    rightChild.Insert(x, y);
+                }
+            }
+
+            Size++;
         }
 
         public int Query(int yMin, int yMax)
@@ -60,7 +83,11 @@
                 return rightChild.queryLeft(yMin);
             }
 
-            int rightCount = rightChild.Size;
+            int rightCount = 0;
+            if (rightChild != null)
+            {
+                rightCount = rightChild.Size;
+            }
             int leftCount = 0;
             if (leftChild != null)
             {
@@ -81,7 +108,11 @@
                 return leftChild.queryRight(yMax);
             }
 
-            int leftCount = leftChild.Size;
+            int leftCount = 0;
+            if (leftChild != null)
+            {
+                leftCount = leftChild.Size;
+            }
             int rightCount = 0;
             if (rightChild != null)
             {

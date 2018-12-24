@@ -154,7 +154,7 @@ namespace RangeUnitTests
         [TestMethod]
         public void Rectangle_19_ManyPointsLattice()
         {
-            const int limit = 200;
+            const int limit = 20;
             int xStep = xHigh - xLow;
             int yStep = yHigh - yLow;
             int xStart = xLow - limit * xStep;
@@ -175,8 +175,8 @@ namespace RangeUnitTests
         [TestMethod]
         public void Rectangle_20_ManyPointsRandom()
         {
-            const int count = 10000;
-            const int limit = 10;
+            const int count = 300;
+            const int limit = 5;
             int xStep = xHigh - xLow;
             int yStep = yHigh - yLow;
             int xStart = xLow - limit * xStep;

@@ -59,7 +59,7 @@ namespace RangeUnitTests
         public void TotalCount_5_RandomPoints()
         {
             Random rng = new Random();
-            const int count = 123456;
+            const int count = 1234;
             for (int i = 0; i < count; i++)
             {
                 tree.Insert(rng.Next(count), rng.Next(count));

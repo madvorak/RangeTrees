@@ -44,7 +44,7 @@ namespace RangeUnitTests
         [TestMethod]
         public void AxisY_4_Diagonal()
         {
-            const int limit = 1000;
+            const int limit = 100;
             for (int i = y - limit; i <= y + limit; i++)
             {
                 tree.Insert(i, i);

@@ -1,6 +1,6 @@
 ﻿namespace RangeTrees
 {
-    public class DummyTree : IRangeTree
+    public class DummyRange : IRangeTree
     {
         private int counter = 0;
 

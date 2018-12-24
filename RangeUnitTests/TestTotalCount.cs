@@ -12,7 +12,7 @@ namespace RangeUnitTests
         [TestInitialize]
         public void Init()
         {
-            tree = new CheatTree();
+            tree = new DummyRange();
         }
 
         private int countAll()

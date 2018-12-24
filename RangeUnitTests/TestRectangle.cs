@@ -14,7 +14,7 @@ namespace RangeUnitTests
         [TestInitialize]
         public void Init()
         {
-            tree = new CheatTree();
+            tree = new DummyRange();
             xLow = 300;
             xHigh = 400;
             yLow = 600;

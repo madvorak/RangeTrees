@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RangeTrees
 {
-    public class CheatTree : IRangeTree
+    public class CheatRange : IRangeTree
     {
         private List<Tuple<int, int>> points = new List<Tuple<int, int>>();
 

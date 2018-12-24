@@ -11,7 +11,7 @@ namespace RangeUnitTests
         [TestInitialize]
         public void Init()
         {
-            tree = new CheatTree();
+            tree = new DummyRange();
             tree.Insert(-7, -7);
             tree.Insert(-7, 7);
             tree.Insert(7, -7);

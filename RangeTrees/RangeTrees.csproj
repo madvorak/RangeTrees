@@ -42,9 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CheatTree.cs" />
-    <Compile Include="DummyTree.cs" />
+    <Compile Include="BBalphaRangeTree.cs" />
+    <Compile Include="CheatRange.cs" />
+    <Compile Include="DummyRange.cs" />
     <Compile Include="IRangeTree.cs" />
+    <Compile Include="Nodes\RangeNodeBase.cs" />
+    <Compile Include="Nodes\RangeNodeX.cs" />
+    <Compile Include="Nodes\RangeNodeY.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

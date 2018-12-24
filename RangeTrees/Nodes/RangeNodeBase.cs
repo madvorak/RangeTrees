@@ -2,7 +2,7 @@
 {
     abstract internal class RangeNodeBase<T> where T : RangeNodeBase<T>
     {
-        public static double Alpha { get; }
+        public static double Alpha { get; } = 0.7;
 
         protected readonly T[] children;
         protected T leftChild
@@ -32,6 +32,9 @@
         public RangeNodeBase()
         {
             children = new T[2];
+            children[0] = null;
+            children[1] = null;
+            Size = 1;
         }
 
         public bool IsBalanced()

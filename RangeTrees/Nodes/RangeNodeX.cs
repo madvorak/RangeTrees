@@ -67,7 +67,7 @@
             int rightCount = 0;
             if (rightChild != null)
             {
-                rightChild.queryRight(xMax, yMin, yMax);
+                rightCount = rightChild.queryRight(xMax, yMin, yMax);
             }
             int me = (tree.CoordY >= yMin && tree.CoordY <= yMax) ? 1 : 0;
             return leftCount + me + rightCount;

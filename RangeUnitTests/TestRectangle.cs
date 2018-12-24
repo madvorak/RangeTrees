@@ -286,5 +286,83 @@ namespace RangeUnitTests
             }
             Assert.AreEqual(inner + 1, countRectangle());
         }
+
+        [TestMethod]
+        public void Rectangle_24_ManyPointsDenseRandom()
+        {
+            const int count = 20000;
+            int xStep = xHigh - xLow;
+            int yStep = yHigh - yLow;
+            int xStart = xLow - xStep / 2;
+            int xStop = xHigh + xStep / 2;
+            int yStart = yLow - yStep / 2;
+            int yStop = yHigh + yStep / 2;
+            Random rng = new Random();
+
+            int inside = 0;
+            for (int i = 0; i < count; i++)
+            {
+                int x = rng.Next(xStop - xStart) + xStart;
+                int y = rng.Next(yStop - yStart) + yStart;
+                tree.Insert(x, y);
+                if (x >= xLow && x <= xHigh && y >= yLow && y <= yHigh)
+                {
+                    inside++;
+                }
+            }
+            Assert.AreEqual(inside, countRectangle());
+        }
+
+        [TestMethod]
+        public void Rectangle_25_ManyPointsSuperDenseRandom()
+        {
+            const int count = 20000;
+            int xStep = xHigh - xLow;
+            int yStep = yHigh - yLow;
+            int xStart = xLow - xStep / 5;
+            int xStop = xHigh + xStep / 5;
+            int yStart = yLow - yStep / 5;
+            int yStop = yHigh + yStep / 5;
+            Random rng = new Random();
+
+            int inside = 0;
+            for (int i = 0; i < count; i++)
+            {
+                int x = rng.Next(xStop - xStart) + xStart;
+                int y = rng.Next(yStop - yStart) + yStart;
+                tree.Insert(x, y);
+                if (x >= xLow && x <= xHigh && y >= yLow && y <= yHigh)
+                {
+                    inside++;
+                }
+            }
+            Assert.AreEqual(inside, countRectangle());
+        }
+
+        [TestMethod]
+        public void Rectangle_26_ManyPointsModeratelyDenseRandom()
+        {
+            const int count = 20000;
+            int xStep = xHigh - xLow;
+            int yStep = yHigh - yLow;
+            int xStart = xLow - xStep;
+            int xStop = xHigh + xStep;
+            int yStart = yLow - yStep;
+            int yStop = yHigh + yStep;
+            Random rng = new Random();
+
+            int inside = 0;
+            for (int i = 0; i < count; i++)
+            {
+                int x = rng.Next(xStop - xStart) + xStart;
+                int y = rng.Next(yStop - yStart) + yStart;
+                tree.Insert(x, y);
+                if (x >= xLow && x <= xHigh && y >= yLow && y <= yHigh)
+                {
+                    inside++;
+                }
+            }
+            Assert.AreEqual(inside, countRectangle());
+        }
     }
 }

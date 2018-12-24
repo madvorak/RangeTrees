@@ -13,7 +13,7 @@ namespace RangeUnitTests
         [TestInitialize]
         public void Init()
         {
-            tree = new DummyRange();
+            tree = new BBalphaRangeTree();
             x = 5;
             y = 9;
         }

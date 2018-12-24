@@ -14,7 +14,7 @@ namespace RangeUnitTests
         [TestInitialize]
         public void Init()
         {
-            tree = new DummyRange();
+            tree = new BBalphaRangeTree();
             xLow = 300;
             xHigh = 400;
             yLow = 600;

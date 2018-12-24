@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RangeTrees
 {
@@ -12,7 +8,7 @@ namespace RangeTrees
 
         static void Main(string[] args)
         {
-            IRangeTree tree = null; // new BBalphaRangeTree();
+            IRangeTree tree = new BBalphaRangeTree();
             
             while (true)
             {
@@ -22,7 +18,7 @@ namespace RangeTrees
                 {
                     case '#':
                         printResults();
-                        tree = null; // new BBalphaRangeTree();
+                        tree = new BBalphaRangeTree();
                         currentSize = int.Parse(tokens[1]);
                         break;
                     case 'I':

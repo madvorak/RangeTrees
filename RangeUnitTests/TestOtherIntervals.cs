@@ -11,7 +11,7 @@ namespace RangeUnitTests
         [TestInitialize]
         public void Init()
         {
-            tree = new DummyRange();
+            tree = new BBalphaRangeTree();
             tree.Insert(-7, -7);
             tree.Insert(-7, 7);
             tree.Insert(7, -7);

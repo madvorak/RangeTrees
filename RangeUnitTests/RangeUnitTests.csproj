@@ -48,8 +48,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TestAxisY.cs" />
     <Compile Include="TestAxisX.cs" />
     <Compile Include="TestOnePoint.cs" />
+    <Compile Include="TestOtherIntervals.cs" />
     <Compile Include="TestRectangle.cs" />
     <Compile Include="TestTotalCount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

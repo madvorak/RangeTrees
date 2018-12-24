@@ -4,96 +4,96 @@ using RangeTrees;
 namespace RangeUnitTests
 {
     [TestClass]
-    public class TestAxisX
+    public class TestAxisY
     {
         private IRangeTree tree;
-        private int x;
+        private int y;
 
         [TestInitialize]
         public void Init()
         {
             tree = new CheatTree();
-            x = 77;
+            y = 33;
         }
 
-        private int countAxisX()
+        private int countAxisY()
         {
-            return tree.RangeCount(x, x, int.MinValue, int.MaxValue);
+            return tree.RangeCount(int.MinValue, int.MaxValue, y, y);
         }
 
         [TestMethod]
-        public void AxisX_1_EmptyTree()
+        public void AxisY_1_EmptyTree()
         {
-            Assert.AreEqual(0, countAxisX());
+            Assert.AreEqual(0, countAxisY());
         }
 
         [TestMethod]
-        public void AxisX_2_OneBadPoint()
+        public void AxisY_2_OneBadPoint()
         {
             tree.Insert(0, 0);
-            Assert.AreEqual(0, countAxisX());
+            Assert.AreEqual(0, countAxisY());
         }
 
         [TestMethod]
-        public void AxisX_3_OneGoodPoint()
+        public void AxisY_3_OneGoodPoint()
         {
-            tree.Insert(x, 0);
-            Assert.AreEqual(1, countAxisX());
+            tree.Insert(0, y);
+            Assert.AreEqual(1, countAxisY());
         }
 
         [TestMethod]
-        public void AxisX_4_Diagonal()
+        public void AxisY_4_Diagonal()
         {
             const int limit = 1000;
-            for (int i = x - limit; i <= x + limit; i++)
+            for (int i = y - limit; i <= y + limit; i++)
             {
                 tree.Insert(i, i);
             }
-            Assert.AreEqual(1, countAxisX());
+            Assert.AreEqual(1, countAxisY());
         }
 
         [TestMethod]
-        public void AxisX_5_ManyGoodPoints()
+        public void AxisY_5_ManyGoodPoints()
         {
             const int count = 50;
             for (int i = 0; i < count; i++)
             {
-                tree.Insert(x, i);
+                tree.Insert(i, y);
             }
-            Assert.AreEqual(count, countAxisX());
+            Assert.AreEqual(count, countAxisY());
         }
 
         [TestMethod]
-        public void AxisX_6_ManyAlmostGoodPoints()
+        public void AxisY_6_ManyAlmostGoodPoints()
         {
             const int count = 50;
             for (int i = 0; i < count; i++)
             {
-                tree.Insert(x - 1, i);
+                tree.Insert(i, y - 1);
             }
-            Assert.AreEqual(0, countAxisX());
+            Assert.AreEqual(0, countAxisY());
         }
 
         [TestMethod]
-        public void AxisX_7_ManyAlmostGoodPoints()
+        public void AxisY_7_ManyAlmostGoodPoints()
         {
             const int count = 50;
             for (int i = 0; i < count; i++)
             {
-                tree.Insert(x + 1, i);
+                tree.Insert(i, y + 1);
             }
-            Assert.AreEqual(0, countAxisX());
+            Assert.AreEqual(0, countAxisY());
         }
 
         [TestMethod]
-        public void AxisX_8_Duplicate()
+        public void AxisY_8_Duplicate()
         {
             const int count = 50;
             for (int i = 0; i < count; i++)
             {
-                tree.Insert(x, 0);
+                tree.Insert(0, y);
             }
-            Assert.AreEqual(count, countAxisX());
+            Assert.AreEqual(count, countAxisY());
         }
     }
 }

@@ -13,7 +13,7 @@ namespace RangeUnitTests
         [TestInitialize]
         public void Init()
         {
-            tree = new DummyTree();
+            tree = new CheatTree();
             x = 5;
             y = 9;
         }
@@ -24,65 +24,79 @@ namespace RangeUnitTests
         }
 
         [TestMethod]
-        public void OnePoint_1_EmptyTree()
+        public void OnePoint_01_EmptyTree()
         {
             Assert.AreEqual(0, countMyPoint());
         }
 
         [TestMethod]
-        public void OnePoint_2_OneBadPoint()
+        public void OnePoint_02_OneBadPoint()
         {
             tree.Insert(0, 0);
             Assert.AreEqual(0, countMyPoint());
         }
 
         [TestMethod]
-        public void OnePoint_3_OneSemiBadPoint()
+        public void OnePoint_03_OneSemiBadPoint()
         {
             tree.Insert(x, 0);
             Assert.AreEqual(0, countMyPoint());
         }
 
         [TestMethod]
-        public void OnePoint_4_OneSemiBadPoint()
+        public void OnePoint_04_OneSemiBadPoint()
         {
             tree.Insert(0, y);
             Assert.AreEqual(0, countMyPoint());
         }
 
         [TestMethod]
-        public void OnePoint_5_OneGoodPoint()
+        public void OnePoint_05_OneGoodPoint()
         {
             tree.Insert(x, y);
             Assert.AreEqual(1, countMyPoint());
         }
 
         [TestMethod]
-        public void OnePoint_6_OneAlmostGoodPoint()
+        public void OnePoint_06_OneAlmostGoodPoint()
         {
             tree.Insert(x + 1, y);
             Assert.AreEqual(0, countMyPoint());
         }
 
         [TestMethod]
-        public void OnePoint_7_OneAlmostGoodPoint()
+        public void OnePoint_07_OneAlmostGoodPoint()
         {
             tree.Insert(x - 1, y);
             Assert.AreEqual(0, countMyPoint());
         }
 
         [TestMethod]
-        public void OnePoint_8_OneAlmostGoodPoint()
+        public void OnePoint_08_OneAlmostGoodPoint()
         {
             tree.Insert(x, y + 1);
             Assert.AreEqual(0, countMyPoint());
         }
 
         [TestMethod]
-        public void OnePoint_9_OneAlmostGoodPoint()
+        public void OnePoint_09_OneAlmostGoodPoint()
         {
             tree.Insert(x, y - 1);
             Assert.AreEqual(0, countMyPoint());
+        }
+
+        [TestMethod]
+        public void OnePoint_10_Lattice()
+        {
+            int limit = 100;
+            for (int i = x - limit; i <= x + limit; i++)
+            {
+                for (int j = y - limit; j <= y + limit; j++)
+                {
+                    tree.Insert(i, j);
+                }
+            }
+            Assert.AreEqual(1, countMyPoint());
         }
     }
 }

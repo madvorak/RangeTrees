@@ -12,7 +12,7 @@ namespace RangeUnitTests
         [TestInitialize]
         public void Init()
         {
-            tree = new DummyTree();
+            tree = new CheatTree();
         }
 
         private int countAll()
@@ -64,6 +64,18 @@ namespace RangeUnitTests
             {
                 tree.Insert(rng.Next(count), rng.Next(count));
             }
+            Assert.AreEqual(count, countAll());
+        }
+
+        [TestMethod]
+        public void TotalCount_6_RepeatedTest()
+        {
+            const int count = 10;
+            for (int i = 0; i < count; i++)
+            {
+                tree.Insert(i, count - i);
+            }
+            Assert.AreEqual(count, countAll());
             Assert.AreEqual(count, countAll());
         }
     }

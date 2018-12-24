@@ -8,12 +8,26 @@ namespace RangeTrees
 
         public void Insert(int x, int y)
         {
-            throw new System.NotImplementedException();
+            if (root == null)
+            {
+                root = new RangeNodeX(x, y);
+            }
+            else
+            {
+                root.Insert(x, y);
+            }
         }
 
         public int RangeCount(int xMin, int xMax, int yMin, int yMax)
         {
-            throw new System.NotImplementedException();
+            if (root == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return root.Query(xMin, xMax, yMin, yMax);
+            }
         }
     }
 }

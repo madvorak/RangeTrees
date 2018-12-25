@@ -1,4 +1,6 @@
-﻿namespace RangeTrees.Nodes
+﻿using System.Collections.Generic;
+
+namespace RangeTrees.Nodes
 {
     internal class RangeNodeX : RangeNodeBase<RangeNodeX>
     {
@@ -50,19 +52,55 @@
         private void rebuild()
         {
             // 1. traverse X-tree in-order to build an array (list) of points
-
+            List<int> pointsX = new List<int>();
+            List<int> pointsY = new List<int>();
+            traverse(pointsX, pointsY);
 
             // 2. find the middle point and put it into this
+            int middleIndex = pointsX.Count / 2;
+            middleX = pointsX[middleIndex];
+            storedY = pointsY[middleIndex];
 
-
-            // 3. rebuild corresponding Y-tree (maybe not needed)
-
+            // 3. rebuild corresponding Y-tree (probably not needed)
 
             // 4. recursively build left subtree from the first half of the array including Y-trees
-
+            leftChild = build(pointsX, pointsY, 0, middleIndex - 1);
 
             // 5. recursively build right subtree from the second half of the array including Y-trees
+            rightChild = build(pointsX, pointsY, middleIndex + 1, pointsX.Count - 1);
+        }
 
+        private void traverse(List<int> xs, List<int> ys)
+        {
+            if (leftChild != null)
+            {
+                leftChild.traverse(xs, ys);
+            }
+
+            xs.Add(middleX);
+            ys.Add(storedY);
+
+            if (rightChild != null)
+            {
+                rightChild.traverse(xs, ys);
+            }
+        }
+
+        private static RangeNodeX build(List<int> xs, List<int> ys, int start, int finish)
+        {
+            if (start > finish)
+            {
+                return null;
+            }
+
+            int middle = (start + finish) / 2;
+            return new RangeNodeX(xs[middle], ys[middle])
+            {
+                leftChild = build(xs, ys, start, middle - 1),     // may be null
+                rightChild = build(xs, ys, middle + 1, finish),   // may be null
+                tree = RangeNodeY.Build(ys, start, finish),
+                Size = finish - start + 1
+            };
         }
 
         public int Query(int xMin, int xMax, int yMin, int yMax)
@@ -165,7 +203,7 @@
                     return false;
                 }
             }
-            return tree.IsTheWholeTreeConsistent();
+            return (this.Size == tree.Size) && tree.IsTheWholeTreeConsistent();
         }
     }
 }

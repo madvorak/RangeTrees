@@ -60,6 +60,7 @@
         // for testing purposes only
         public bool IsTheWholeTreeConsistent()
         {
+            int totalSize = 1;
             if (!IsBalanced())
             {
                 return false;
@@ -72,9 +73,10 @@
                     {
                         return false;
                     }
+                    totalSize += child.Size;
                 }
             }
-            return areInternalsConsistent();
+            return (Size == totalSize) && areInternalsConsistent();
         }
 
         protected abstract bool areInternalsConsistent();

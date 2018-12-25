@@ -54,10 +54,10 @@ namespace RangeTrees.Nodes
             coordY = points[middleIndex];
 
             // 3. recursively build left subtree from the first half of the array
-            leftChild = build(points, 0, middleIndex - 1);
+            leftChild = Build(points, 0, middleIndex - 1);
 
             // 4. recursively build right subtree from the second half of the array
-            rightChild = build(points, middleIndex + 1, points.Count - 1);
+            rightChild = Build(points, middleIndex + 1, points.Count - 1);
         }
 
         private void traverse(List<int> ys)
@@ -75,7 +75,7 @@ namespace RangeTrees.Nodes
             }
         }
 
-        private static RangeNodeY build( List<int> ys, int start, int finish)
+        public static RangeNodeY Build(List<int> ys, int start, int finish)
         {
             if (start > finish)
             {
@@ -85,8 +85,8 @@ namespace RangeTrees.Nodes
             int middle = (start + finish) / 2;
             return new RangeNodeY(ys[middle])
             {
-                leftChild = build(ys, start, middle - 1),     // may be null
-                rightChild = build(ys, middle + 1, finish),   // may be null
+                leftChild = Build(ys, start, middle - 1),     // may be null
+                rightChild = Build(ys, middle + 1, finish),   // may be null
                 Size = finish - start + 1
             };
         }

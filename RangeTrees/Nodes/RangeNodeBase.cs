@@ -2,7 +2,7 @@
 {
     abstract internal class RangeNodeBase<T> where T : RangeNodeBase<T>
     {
-        public static double Alpha { get; } = 0.7;
+        private const double alpha = 0.7;
 
         protected readonly T[] children;
         protected T leftChild
@@ -48,7 +48,7 @@
             {
                 if (child != null)
                 {
-                    if (child.Size > Alpha * Size)
+                    if (child.Size > alpha * Size)
                     {
                         return false;
                     }

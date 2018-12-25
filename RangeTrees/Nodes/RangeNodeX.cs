@@ -66,6 +66,7 @@ namespace RangeTrees.Nodes
             // or traverse Y-tree? ... how to handle subtrees then ???
             // OMG nooooo !!!!!!! must sort Y coordinates only when right before calling build od Y-tree
             // but isn't it inefficient ??????
+            // possible solution: traverse Y-tree, find median by X, then split by the X and keep order by Y
 
             // 3. rebuild corresponding Y-tree (probably not needed)
 
@@ -100,14 +101,14 @@ namespace RangeTrees.Nodes
             }
 
             int middle = (start + finish) / 2;
-            List<int> sortedYs = ys.Take(finish + 1).Skip(start).OrderBy(k => k).ToList();
+            int[] sortedYs = ys.Take(finish + 1).Skip(start).OrderBy(k => k).ToArray();
             // TODO sort without LINQ
 
             return new RangeNodeX(xs[middle], ys[middle])
             {
                 leftChild = build(xs, ys, start, middle - 1),     // may be null
                 rightChild = build(xs, ys, middle + 1, finish),   // may be null
-                tree = RangeNodeY.Build(sortedYs, 0, sortedYs.Count - 1),
+                tree = RangeNodeY.Build(sortedYs, 0, sortedYs.Length - 1),
                 Size = finish - start + 1
             };
         }

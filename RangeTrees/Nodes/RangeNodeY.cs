@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace RangeTrees.Nodes
+﻿namespace RangeTrees.Nodes
 {
     internal class RangeNodeY : RangeNodeBase<RangeNodeY>
     {
@@ -46,36 +44,37 @@ namespace RangeTrees.Nodes
         private void rebuild()
         {
             // 1. traverse in-order to build an array (list) of points
-            List<int> points = new List<int>();
-            traverse(points);
+            int[] points = new int[Size];
+            int index = 0;
+            traverse(points, ref index);
 
             // 2. find the middle point and put it into this
-            int middleIndex = points.Count / 2;
+            int middleIndex = points.Length / 2;
             coordY = points[middleIndex];
 
             // 3. recursively build left subtree from the first half of the array
             leftChild = Build(points, 0, middleIndex - 1);
 
             // 4. recursively build right subtree from the second half of the array
-            rightChild = Build(points, middleIndex + 1, points.Count - 1);
+            rightChild = Build(points, middleIndex + 1, points.Length - 1);
         }
 
-        private void traverse(List<int> ys)
+        private void traverse(int[] ys, ref int index)
         {
             if (leftChild != null)
             {
-                leftChild.traverse(ys);
+                leftChild.traverse(ys, ref index);
             }
 
-            ys.Add(coordY);
+            ys[index++] = coordY;
 
             if (rightChild != null)
             {
-                rightChild.traverse(ys);
+                rightChild.traverse(ys, ref index);
             }
         }
 
-        public static RangeNodeY Build(List<int> ys, int start, int finish)
+        public static RangeNodeY Build(int[] ys, int start, int finish)
         {
             if (start > finish)
             {

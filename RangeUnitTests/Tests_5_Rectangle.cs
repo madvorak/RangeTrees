@@ -156,7 +156,7 @@ namespace RangeUnitTests
         [TestMethod]
         public void Rectangle_19_ManyPointsLattice()
         {
-            const int limit = 20;
+            const int limit = 50;
             int xStep = xHigh - xLow;
             int yStep = yHigh - yLow;
             int xStart = xLow - limit * xStep;
@@ -175,36 +175,9 @@ namespace RangeUnitTests
         }
 
         [TestMethod]
-        public void Rectangle_20_ManyPointsRandom()
+        public void Rectangle_20_ManyPointsLatticeShuffled()
         {
-            const int count = 100000;
-            const int limit = 10;
-            int xStep = xHigh - xLow;
-            int yStep = yHigh - yLow;
-            int xStart = xLow - limit * xStep;
-            int xStop = xHigh + limit * xStep;
-            int yStart = yLow - limit * yStep;
-            int yStop = yHigh + limit * yStep;
-            Random rng = new Random();
-
-            int inside = 0;
-            for (int i = 0; i < count; i++)
-            {
-                int x = rng.Next(xStop - xStart) + xStart;
-                int y = rng.Next(yStop - yStart) + yStart;
-                tree.Insert(x, y);
-                if (x >= xLow && x <= xHigh && y >= yLow && y <= yHigh)
-                {
-                    inside++;
-                }
-            }
-            Assert.AreEqual(inside, countRectangle());
-        }
-
-        [TestMethod]
-        public void Rectangle_21_ManyPointsLatticeShuffled()
-        {
-            const int limit = 50;
+            const int limit = 100;
             int xStep = xHigh - xLow;
             int yStep = yHigh - yLow;
             int xStart = xLow - limit * xStep;
@@ -230,9 +203,9 @@ namespace RangeUnitTests
         }
 
         [TestMethod]
-        public void Rectangle_22_ManyPointsDiagonalShuffled()
+        public void Rectangle_21_ManyPointsDiagonalShuffled()
         {
-            const int limit = 500;
+            const int limit = 50000;
             const int inner = 10;
             int xStep = (xHigh - xLow) / inner;
             int yStep = (yHigh - yLow) / inner;
@@ -259,9 +232,9 @@ namespace RangeUnitTests
         }
 
         [TestMethod]
-        public void Rectangle_23_ManyPointsAntiDiagonalShuffled()
+        public void Rectangle_22_ManyPointsAntiDiagonalShuffled()
         {
-            const int limit = 500;
+            const int limit = 50000;
             const int inner = 10;
             int xStep = (xHigh - xLow) / inner;
             int yStep = (yHigh - yLow) / inner;
@@ -288,9 +261,36 @@ namespace RangeUnitTests
         }
 
         [TestMethod]
+        public void Rectangle_23_ManyPointsRandom()
+        {
+            const int count = 100000;
+            const int limit = 10;
+            int xStep = xHigh - xLow;
+            int yStep = yHigh - yLow;
+            int xStart = xLow - limit * xStep;
+            int xStop = xHigh + limit * xStep;
+            int yStart = yLow - limit * yStep;
+            int yStop = yHigh + limit * yStep;
+            Random rng = new Random();
+
+            int inside = 0;
+            for (int i = 0; i < count; i++)
+            {
+                int x = rng.Next(xStop - xStart) + xStart;
+                int y = rng.Next(yStop - yStart) + yStart;
+                tree.Insert(x, y);
+                if (x >= xLow && x <= xHigh && y >= yLow && y <= yHigh)
+                {
+                    inside++;
+                }
+            }
+            Assert.AreEqual(inside, countRectangle());
+        }
+
+        [TestMethod]
         public void Rectangle_24_ManyPointsDenseRandom()
         {
-            const int count = 20000;
+            const int count = 50000;
             int xStep = xHigh - xLow;
             int yStep = yHigh - yLow;
             int xStart = xLow - xStep / 2;
@@ -316,7 +316,7 @@ namespace RangeUnitTests
         [TestMethod]
         public void Rectangle_25_ManyPointsSuperDenseRandom()
         {
-            const int count = 20000;
+            const int count = 50000;
             int xStep = xHigh - xLow;
             int yStep = yHigh - yLow;
             int xStart = xLow - xStep / 5;
@@ -342,7 +342,7 @@ namespace RangeUnitTests
         [TestMethod]
         public void Rectangle_26_ManyPointsModeratelyDenseRandom()
         {
-            const int count = 20000;
+            const int count = 50000;
             int xStep = xHigh - xLow;
             int yStep = yHigh - yLow;
             int xStart = xLow - xStep;

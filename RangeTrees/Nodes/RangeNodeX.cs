@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 namespace RangeTrees.Nodes
 {
@@ -53,47 +52,48 @@ namespace RangeTrees.Nodes
         private void rebuild()
         {
             // 1. traverse X-tree in-order to build an array (list) of points
-            List<int> pointsX = new List<int>();
-            List<int> pointsY = new List<int>();
-            traverse(pointsX, pointsY);
+            int[] pointsX = new int[Size];
+            int[] pointsY = new int[Size];
+            int index = 0;
+            traverse(pointsX, pointsY, ref index);
 
             // 2. find the middle point and put it into this
-            int middleIndex = pointsX.Count / 2;
+            int middleIndex = pointsX.Length / 2;
             middleX = pointsX[middleIndex];
             storedY = pointsY[middleIndex]; 
             // TODO what about Y coordinates are not sorted !?
             // should I sort them here?
-            // or traverse Y-tree? ... how to handle subtrees then ???
             // OMG nooooo !!!!!!! must sort Y coordinates only when right before calling build od Y-tree
-            // but isn't it inefficient ??????
-            // possible solution: traverse Y-tree, find median by X, then split by the X and keep order by Y
+            // but isn't it inefficient ?????? yes, it is!
+            // possible solution: traverse Y-tree, find median by X, then "split" by the X and keep order by Y
+            // median by X (and medians in respective subtrees) can be found by X-tree traverse without any complicated algorithm
+            // ys values will have to be filtered every time recursion is called
 
-            // 3. rebuild corresponding Y-tree (probably not needed)
-
-            // 4. recursively build left subtree from the first half of the array including Y-trees
+            // 3. recursively build left subtree from the first half of the array including Y-trees
             leftChild = build(pointsX, pointsY, 0, middleIndex - 1);
 
-            // 5. recursively build right subtree from the second half of the array including Y-trees
-            rightChild = build(pointsX, pointsY, middleIndex + 1, pointsX.Count - 1);
+            // 4. recursively build right subtree from the second half of the array including Y-trees
+            rightChild = build(pointsX, pointsY, middleIndex + 1, pointsX.Length - 1);
         }
 
-        private void traverse(List<int> xs, List<int> ys)
+        private void traverse(int[] xs, int[] ys, ref int index)
         {
             if (leftChild != null)
             {
-                leftChild.traverse(xs, ys);
+                leftChild.traverse(xs, ys, ref index);
             }
 
-            xs.Add(middleX);
-            ys.Add(storedY);
+            xs[index] = middleX;
+            ys[index] = storedY;
+            index++;
 
             if (rightChild != null)
             {
-                rightChild.traverse(xs, ys);
+                rightChild.traverse(xs, ys, ref index);
             }
         }
 
-        private static RangeNodeX build(List<int> xs, List<int> ys, int start, int finish)
+        private static RangeNodeX build(int[] xs, int[] ys, int start, int finish)
         {
             if (start > finish)
             {

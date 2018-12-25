@@ -12,10 +12,10 @@ namespace RangeUnitTests
         public void Init()
         {
             tree = new BBalphaRangeTree();
-            tree.Insert(-7, -7);
-            tree.Insert(-7, 7);
-            tree.Insert(7, -7);
-            tree.Insert(7, 7);
+            tree.Insert(-1, -2);
+            tree.Insert(-3, 4);
+            tree.Insert(5, -6);
+            tree.Insert(7, 8);
         }
 
         [TestMethod]

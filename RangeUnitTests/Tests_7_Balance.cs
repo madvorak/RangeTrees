@@ -57,7 +57,7 @@ namespace RangeUnitTests
         [TestMethod]
         public void Balance_5_RebuildAll()
         {
-            int count = 800;
+            int count = 10000;
             for (int i = 0; i < count; i++)
             {
                 tree.Insert(i, i);
@@ -68,7 +68,7 @@ namespace RangeUnitTests
         [TestMethod]
         public void Balance_6_RebuildInRandomSequence()
         {
-            int count = 5000;
+            int count = 50000;
             Random rng = new Random();
             for (int i = 0; i < count; i++)
             {

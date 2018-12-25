@@ -11,6 +11,7 @@
 
         public int RangeCount(int xMin, int xMax, int yMin, int yMax)
         {
+            // return counter;
             return 0;
         }
     }

@@ -92,7 +92,7 @@ namespace RangeUnitTests
         public void TotalCount_8_RandomPoints()
         {
             Random rng = new Random();
-            const int count = 123456;
+            const int count = 100000;
             for (int i = 0; i < count; i++)
             {
                 tree.Insert(rng.Next(count), rng.Next(count));

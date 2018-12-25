@@ -29,5 +29,18 @@ namespace RangeTrees
                 return root.Query(xMin, xMax, yMin, yMax);
             }
         }
+
+        // for testing purposes only
+        public bool isWholeStructureBalanced()
+        {
+            if (root == null)
+            {
+                return true;
+            }
+            else
+            {
+                return root.IsTheWholeTreeBalanced();
+            }
+        }
     }
 }

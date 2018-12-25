@@ -1,13 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RangeTrees;
-using System.Reflection;
+using System;
 
 namespace RangeUnitTests
 {
     [TestClass]
     public class Tests_7_Balance
     {
-        private IRangeTree tree;
+        private BBalphaRangeTree tree;
 
         [TestInitialize]
         public void Init()
@@ -17,10 +17,7 @@ namespace RangeUnitTests
 
         private bool isOK()
         {
-            FieldInfo info = typeof(BBalphaRangeTree).GetField("root");
-            object root = info.GetValue(tree);
-            // TODO access to internal classes and private fields required
-            return false;
+            return tree.isWholeStructureBalanced();
         }
 
         [TestMethod]
@@ -54,6 +51,29 @@ namespace RangeUnitTests
             tree.Insert(2, 1);
             tree.Insert(3, 4);
             tree.Insert(4, 3);
+            Assert.IsTrue(isOK());
+        }
+        
+        [TestMethod]
+        public void Balance_5_RebuildAll()
+        {
+            int count = 800;
+            for (int i = 0; i < count; i++)
+            {
+                tree.Insert(i, i);
+            }
+            Assert.IsTrue(isOK());
+        }
+
+        [TestMethod]
+        public void Balance_6_RebuildInRandomSequence()
+        {
+            int count = 5000;
+            Random rng = new Random();
+            for (int i = 0; i < count; i++)
+            {
+                tree.Insert(rng.Next(count), rng.Next(count));
+            }
             Assert.IsTrue(isOK());
         }
     }

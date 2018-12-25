@@ -4,12 +4,10 @@ namespace RangeTrees.Nodes
 {
     internal class RangeNodeY : RangeNodeBase<RangeNodeY>
     {
-        private int coordX;  // probably useless
         private int coordY;
 
-        public RangeNodeY(int x, int y)
+        public RangeNodeY(int y)
         {
-            coordX = x;
             coordY = y;
         }
 
@@ -19,7 +17,7 @@ namespace RangeTrees.Nodes
             {
                 if (leftChild == null)
                 {
-                    leftChild = new RangeNodeY(x, y);
+                    leftChild = new RangeNodeY(y);
                 }
                 else
                 {
@@ -30,7 +28,7 @@ namespace RangeTrees.Nodes
             {
                 if (rightChild == null)
                 {
-                    rightChild = new RangeNodeY(x, y);
+                    rightChild = new RangeNodeY(y);
                 }
                 else
                 {
@@ -48,39 +46,36 @@ namespace RangeTrees.Nodes
         private void rebuild()
         {
             // 1. traverse in-order to build an array (list) of points
-            List<int> pointsX = new List<int>();
-            List<int> pointsY = new List<int>();
-            traverse(pointsX, pointsY);
+            List<int> points = new List<int>();
+            traverse(points);
 
-            // 2. find middle and put it into this
-            int middleIndex = pointsX.Count / 2;
-            coordX = pointsX[middleIndex];
-            coordY = pointsY[middleIndex];
+            // 2. find the middle point and put it into this
+            int middleIndex = points.Count / 2;
+            coordY = points[middleIndex];
 
             // 3. recursively build left subtree from the first half of the array
-            leftChild = build(pointsX, pointsY, 0, middleIndex - 1);
+            leftChild = build(points, 0, middleIndex - 1);
 
             // 4. recursively build right subtree from the second half of the array
-            rightChild = build(pointsX, pointsY, middleIndex + 1, pointsX.Count - 1);
+            rightChild = build(points, middleIndex + 1, points.Count - 1);
         }
 
-        private void traverse(List<int> xs, List<int> ys)
+        private void traverse(List<int> ys)
         {
             if (leftChild != null)
             {
-                leftChild.traverse(xs, ys);
+                leftChild.traverse(ys);
             }
 
-            xs.Add(coordX);
             ys.Add(coordY);
 
             if (rightChild != null)
             {
-                rightChild.traverse(xs, ys);
+                rightChild.traverse(ys);
             }
         }
 
-        private static RangeNodeY build(List<int> xs, List<int> ys, int start, int finish)
+        private static RangeNodeY build( List<int> ys, int start, int finish)
         {
             if (start > finish)
             {
@@ -88,10 +83,10 @@ namespace RangeTrees.Nodes
             }
 
             int middle = (start + finish) / 2;
-            return new RangeNodeY(xs[middle], ys[middle])
+            return new RangeNodeY(ys[middle])
             {
-                leftChild = build(xs, ys, start, middle - 1),     // may be null
-                rightChild = build(xs, ys, middle + 1, finish),   // may be null
+                leftChild = build(ys, start, middle - 1),     // may be null
+                rightChild = build(ys, middle + 1, finish),   // may be null
                 Size = finish - start + 1
             };
         }
@@ -180,6 +175,12 @@ namespace RangeTrees.Nodes
             }
 
             return leftCount + 1 + rightCount;
+        }
+
+        // for testing purposes only
+        protected override bool areInternalsBalanced()
+        {
+            return true;
         }
     }
 }

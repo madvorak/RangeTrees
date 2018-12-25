@@ -8,9 +8,9 @@
         
         public RangeNodeX(int x, int y)
         {
-            tree = new RangeNodeY(x, y);
             middleX = x;
             storedY = y;
+            tree = new RangeNodeY(y);
         }
 
         public void Insert(int x, int y)
@@ -43,8 +43,26 @@
             Size++;
             if (!IsBalanced())
             {
-                // TODO
+                rebuild();
             }
+        }
+
+        private void rebuild()
+        {
+            // 1. traverse X-tree in-order to build an array (list) of points
+
+
+            // 2. find the middle point and put it into this
+
+
+            // 3. rebuild corresponding Y-tree (maybe not needed)
+
+
+            // 4. recursively build left subtree from the first half of the array including Y-trees
+
+
+            // 5. recursively build right subtree from the second half of the array including Y-trees
+
         }
 
         public int Query(int xMin, int xMax, int yMin, int yMax)
@@ -128,6 +146,12 @@
             }
             int me = (storedY >= yMin && storedY <= yMax) ? 1 : 0;
             return leftCount + me + rightCount;
+        }
+
+        // for testing purposes only
+        protected override bool areInternalsBalanced()
+        {
+            return tree.IsTheWholeTreeBalanced();
         }
     }
 }

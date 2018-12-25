@@ -27,6 +27,7 @@
                 children[1] = value;
             }
         }
+
         public int Size { get; protected set; } 
 
         public RangeNodeBase()
@@ -54,6 +55,29 @@
                 }
             }
             return true;
+        }
+
+        // for testing purposes only
+        protected abstract bool areInternalsBalanced();
+
+        // for testing purposes only
+        public bool IsTheWholeTreeBalanced()
+        {
+            if (!IsBalanced())
+            {
+                return false;
+            }
+            foreach (T child in children)
+            {
+                if (child != null)
+                {
+                    if (!child.IsTheWholeTreeBalanced())
+                    {
+                        return false;
+                    }
+                }
+            }
+            return areInternalsBalanced();
         }
     }
 }

@@ -4,7 +4,7 @@ using RangeTrees;
 namespace RangeUnitTests
 {
     [TestClass]
-    public class TestOtherIntervals
+    public class Tests_6_OtherIntervals
     {
         private IRangeTree tree;
 

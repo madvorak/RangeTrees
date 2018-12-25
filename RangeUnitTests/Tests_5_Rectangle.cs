@@ -7,7 +7,7 @@ using RangeTrees;
 namespace RangeUnitTests
 {
     [TestClass]
-    public class TestRectangle
+    public class Tests_5_Rectangle
     {
         private IRangeTree tree;
         private int xLow, xHigh;
@@ -202,7 +202,7 @@ namespace RangeUnitTests
         }
 
         [TestMethod]
-        public void Rectangle_21_ManyPointsLatticeRandom()
+        public void Rectangle_21_ManyPointsLatticeShuffled()
         {
             const int limit = 50;
             int xStep = xHigh - xLow;
@@ -230,7 +230,7 @@ namespace RangeUnitTests
         }
 
         [TestMethod]
-        public void Rectangle_22_ManyPointsDiagonalRandom()
+        public void Rectangle_22_ManyPointsDiagonalShuffled()
         {
             const int limit = 500;
             const int inner = 10;
@@ -259,7 +259,7 @@ namespace RangeUnitTests
         }
 
         [TestMethod]
-        public void Rectangle_23_ManyPointsAntiDiagonalRandom()
+        public void Rectangle_23_ManyPointsAntiDiagonalShuffled()
         {
             const int limit = 500;
             const int inner = 10;

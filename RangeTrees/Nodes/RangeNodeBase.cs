@@ -39,15 +39,18 @@
 
         public bool IsBalanced()
         {
-            if (Size < 5 / (1 - Alpha))
+            if (Size < 3) // TODO change for production (increase)
             {
                 return true;
             }
             foreach (T child in children)
             {
-                if (child.Size > Alpha * Size)
+                if (child != null)
                 {
-                    return false;
+                    if (child.Size > Alpha * Size)
+                    {
+                        return false;
+                    }
                 }
             }
             return true;

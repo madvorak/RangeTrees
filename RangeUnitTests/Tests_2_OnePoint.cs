@@ -4,7 +4,7 @@ using RangeTrees;
 namespace RangeUnitTests
 {
     [TestClass]
-    public class TestOnePoint
+    public class Tests_2_OnePoint
     {
         private IRangeTree tree;
         private int x;

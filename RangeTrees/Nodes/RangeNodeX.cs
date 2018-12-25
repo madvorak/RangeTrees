@@ -37,7 +37,12 @@
             }
 
             tree.Insert(x, y);
+
             Size++;
+            if (!IsBalanced())
+            {
+                // TODO
+            }
         }
 
         public int Query(int xMin, int xMax, int yMin, int yMax)

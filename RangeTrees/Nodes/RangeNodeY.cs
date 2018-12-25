@@ -37,6 +37,10 @@
             }
 
             Size++;
+            if (!IsBalanced())
+            {
+                // TODO
+            }
         }
 
         public int Query(int yMin, int yMax)

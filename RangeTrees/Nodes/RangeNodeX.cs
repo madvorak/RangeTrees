@@ -3,17 +3,19 @@
     internal class RangeNodeX : RangeNodeBase<RangeNodeX>
     {
         private RangeNodeY tree;
-        public int MiddleX { get; private set; }
+        private int middleX;
+        private int storedY;
         
         public RangeNodeX(int x, int y)
         {
             tree = new RangeNodeY(x, y);
-            MiddleX = x;
+            middleX = x;
+            storedY = y;
         }
 
         public void Insert(int x, int y)
         {
-            if (x <= MiddleX)
+            if (x <= middleX)
             {
                 if (leftChild == null)
                 {
@@ -47,7 +49,7 @@
 
         public int Query(int xMin, int xMax, int yMin, int yMax)
         {
-            if (MiddleX < xMin)
+            if (middleX < xMin)
             {
                 if (rightChild == null)
                 {
@@ -55,7 +57,7 @@
                 }
                 return rightChild.Query(xMin, xMax, yMin, yMax);
             }
-            if (MiddleX > xMax)
+            if (middleX > xMax)
             {
                 if (leftChild == null)
                 {
@@ -74,13 +76,13 @@
             {
                 rightCount = rightChild.queryRight(xMax, yMin, yMax);
             }
-            int me = (tree.CoordY >= yMin && tree.CoordY <= yMax) ? 1 : 0;
+            int me = (storedY >= yMin && storedY <= yMax) ? 1 : 0;
             return leftCount + me + rightCount;
         }
 
         private int queryLeft(int xMin, int yMin, int yMax)
         {
-            if (MiddleX < xMin)
+            if (middleX < xMin)
             {
                 if (rightChild == null)
                 {
@@ -99,13 +101,13 @@
             {
                 leftCount = leftChild.queryLeft(xMin, yMin, yMax);
             }
-            int me = (tree.CoordX >= xMin && tree.CoordY >= yMin && tree.CoordY <= yMax) ? 1 : 0;
+            int me = (storedY >= yMin && storedY <= yMax) ? 1 : 0;
             return leftCount + me + rightCount;
         }
 
         private int queryRight(int xMax, int yMin, int yMax)
         {
-            if (MiddleX > xMax)
+            if (middleX > xMax)
             {
                 if (leftChild == null)
                 {
@@ -124,7 +126,7 @@
             {
                 rightCount = rightChild.queryRight(xMax, yMin, yMax);
             }
-            int me = (tree.CoordX <= xMax && tree.CoordY >= yMin && tree.CoordY <= yMax) ? 1 : 0;
+            int me = (storedY >= yMin && storedY <= yMax) ? 1 : 0;
             return leftCount + me + rightCount;
         }
     }

@@ -17,7 +17,7 @@ namespace RangeUnitTests
 
         private bool isOK()
         {
-            return tree.isWholeStructureBalanced();
+            return tree.isConsistent();
         }
 
         [TestMethod]

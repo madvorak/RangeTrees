@@ -38,7 +38,7 @@
                 }
             }
 
-            tree.Insert(x, y);
+            tree.Insert(y);
 
             Size++;
             if (!IsBalanced())
@@ -149,9 +149,23 @@
         }
 
         // for testing purposes only
-        protected override bool areInternalsBalanced()
+        protected override bool areInternalsConsistent()
         {
-            return tree.IsTheWholeTreeBalanced();
+            if (leftChild != null)
+            {
+                if (leftChild.middleX > this.middleX)
+                {
+                    return false;
+                }
+            }
+            if (rightChild != null)
+            {
+                if (rightChild.middleX < this.middleX)
+                {
+                    return false;
+                }
+            }
+            return tree.IsTheWholeTreeConsistent();
         }
     }
 }

@@ -31,7 +31,7 @@ namespace RangeTrees
         }
 
         // for testing purposes only
-        public bool isWholeStructureBalanced()
+        public bool isConsistent()
         {
             if (root == null)
             {
@@ -39,7 +39,7 @@ namespace RangeTrees
             }
             else
             {
-                return root.IsTheWholeTreeBalanced();
+                return root.IsTheWholeTreeConsistent();
             }
         }
     }

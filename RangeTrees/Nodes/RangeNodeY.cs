@@ -11,7 +11,7 @@ namespace RangeTrees.Nodes
             coordY = y;
         }
 
-        public void Insert(int x, int y)
+        public void Insert(int y)
         {
             if (y <= coordY)
             {
@@ -21,7 +21,7 @@ namespace RangeTrees.Nodes
                 }
                 else
                 {
-                    leftChild.Insert(x, y);
+                    leftChild.Insert(y);
                 }
             }
             else
@@ -32,7 +32,7 @@ namespace RangeTrees.Nodes
                 }
                 else
                 {
-                    rightChild.Insert(x, y);
+                    rightChild.Insert(y);
                 }
             }
 
@@ -178,8 +178,22 @@ namespace RangeTrees.Nodes
         }
 
         // for testing purposes only
-        protected override bool areInternalsBalanced()
+        protected override bool areInternalsConsistent()
         {
+            if (leftChild != null)
+            {
+                if (leftChild.coordY > this.coordY)
+                {
+                    return false;
+                }
+            }
+            if (rightChild != null)
+            {
+                if (rightChild.coordY < this.coordY)
+                {
+                    return false;
+                }
+            }
             return true;
         }
     }

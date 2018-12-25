@@ -58,10 +58,7 @@
         }
 
         // for testing purposes only
-        protected abstract bool areInternalsBalanced();
-
-        // for testing purposes only
-        public bool IsTheWholeTreeBalanced()
+        public bool IsTheWholeTreeConsistent()
         {
             if (!IsBalanced())
             {
@@ -71,13 +68,15 @@
             {
                 if (child != null)
                 {
-                    if (!child.IsTheWholeTreeBalanced())
+                    if (!child.IsTheWholeTreeConsistent())
                     {
                         return false;
                     }
                 }
             }
-            return areInternalsBalanced();
+            return areInternalsConsistent();
         }
+
+        protected abstract bool areInternalsConsistent();
     }
 }

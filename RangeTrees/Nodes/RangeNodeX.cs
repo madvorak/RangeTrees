@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace RangeTrees.Nodes
 {
@@ -59,7 +60,12 @@ namespace RangeTrees.Nodes
             // 2. find the middle point and put it into this
             int middleIndex = pointsX.Count / 2;
             middleX = pointsX[middleIndex];
-            storedY = pointsY[middleIndex];
+            storedY = pointsY[middleIndex]; 
+            // TODO what about Y coordinates are not sorted !?
+            // should I sort them here?
+            // or traverse Y-tree? ... how to handle subtrees then ???
+            // OMG nooooo !!!!!!! must sort Y coordinates only when right before calling build od Y-tree
+            // but isn't it inefficient ??????
 
             // 3. rebuild corresponding Y-tree (probably not needed)
 
@@ -94,11 +100,14 @@ namespace RangeTrees.Nodes
             }
 
             int middle = (start + finish) / 2;
+            List<int> sortedYs = ys.Take(finish + 1).Skip(start).OrderBy(k => k).ToList();
+            // TODO sort without LINQ
+
             return new RangeNodeX(xs[middle], ys[middle])
             {
                 leftChild = build(xs, ys, start, middle - 1),     // may be null
                 rightChild = build(xs, ys, middle + 1, finish),   // may be null
-                tree = RangeNodeY.Build(ys, start, finish),
+                tree = RangeNodeY.Build(sortedYs, 0, sortedYs.Count - 1),
                 Size = finish - start + 1
             };
         }

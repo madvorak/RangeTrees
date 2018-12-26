@@ -264,6 +264,11 @@ namespace RangeUnitTests
         public void Rectangle_23_ManyPointsRandom()
         {
             const int count = 100000;
+            // pro 1 milion prvku trval 116 sekund
+            // pro 65 tisic prvku trval 2.25 sekund
+            // to je cca 52x dele
+            // podle amortizovane asymptoticke casove slozitosti by to melo trvat cca 24x dele
+            // to by asi mohlo byt horsim pomerem cache-missu
             const int limit = 10;
             int xStep = xHigh - xLow;
             int yStep = yHigh - yLow;

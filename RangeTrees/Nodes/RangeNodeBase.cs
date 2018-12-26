@@ -4,54 +4,38 @@
     {
         private const double alpha = 0.7;
 
-        protected readonly T[] children;
-        protected T leftChild
-        {
-            get
-            {
-                return children[0];
-            }
-            set
-            {
-                children[0] = value;
-            }
-        }
-        protected T rightChild
-        {
-            get
-            {
-                return children[1];
-            }
-            set
-            {
-                children[1] = value;
-            }
-        }
+        protected T leftChild;
+        protected T rightChild;
 
-        public int Size { get; protected set; } 
+        public int Size { get; protected set; }
 
         public RangeNodeBase()
         {
-            children = new T[2];
-            children[0] = null;
-            children[1] = null;
+            leftChild = null;
+            rightChild = null;
             Size = 1;
         }
 
         public bool IsBalanced()
         {
-            if (Size < 3) // TODO change for production (increase)
+#if(!DEBUG)
+            if (Size < 10)
             {
                 return true;
             }
-            foreach (T child in children)
+#endif
+            if (leftChild != null)
             {
-                if (child != null)
+                if (leftChild.Size > alpha * Size)
                 {
-                    if (child.Size > alpha * Size)
-                    {
-                        return false;
-                    }
+                    return false;
+                }
+            }
+            if (rightChild != null)
+            {
+                if (rightChild.Size > alpha * Size)
+                {
+                    return false;
                 }
             }
             return true;
@@ -65,16 +49,21 @@
             {
                 return false;
             }
-            foreach (T child in children)
+            if (leftChild != null)
             {
-                if (child != null)
+                if (!leftChild.IsTheWholeTreeConsistent())
                 {
-                    if (!child.IsTheWholeTreeConsistent())
-                    {
-                        return false;
-                    }
-                    totalSize += child.Size;
+                    return false;
                 }
+                totalSize += leftChild.Size;
+            }
+            if (rightChild != null)
+            {
+                if (!rightChild.IsTheWholeTreeConsistent())
+                {
+                    return false;
+                }
+                totalSize += rightChild.Size;
             }
             return (Size == totalSize) && areInternalsConsistent();
         }

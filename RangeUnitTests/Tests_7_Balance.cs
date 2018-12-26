@@ -33,6 +33,7 @@ namespace RangeUnitTests
             tree.Insert(1, 1);
             tree.Insert(4, 4);
             tree.Insert(3, 3);
+            // this test is useful only in DEBUG mode
             Assert.IsTrue(isOK());
         }
         [TestMethod]
@@ -42,6 +43,7 @@ namespace RangeUnitTests
             tree.Insert(1, 2);
             tree.Insert(4, 3);
             tree.Insert(3, 4);
+            // this test is useful only in DEBUG mode
             Assert.IsTrue(isOK());
         }
         [TestMethod]
@@ -51,13 +53,24 @@ namespace RangeUnitTests
             tree.Insert(2, 1);
             tree.Insert(3, 4);
             tree.Insert(4, 3);
+            // this test is useful only in DEBUG mode
+            Assert.IsTrue(isOK());
+        }
+        [TestMethod]
+        public void Balance_5_RebuildBoth()
+        {
+            tree.Insert(1, 1);
+            tree.Insert(2, 2);
+            tree.Insert(3, 3);
+            tree.Insert(4, 4);
+            // this test is useful only in DEBUG mode
             Assert.IsTrue(isOK());
         }
-        
+
         [TestMethod]
-        public void Balance_5_RebuildAll()
+        public void Balance_6_RebuildAllSeqUp()
         {
-            int count = 10000;
+            int count = 20000;
             for (int i = 0; i < count; i++)
             {
                 tree.Insert(i, i);
@@ -66,7 +79,18 @@ namespace RangeUnitTests
         }
 
         [TestMethod]
-        public void Balance_6_RebuildInRandomSequence()
+        public void Balance_7_RebuildAllSeqDown()
+        {
+            int count = 20000;
+            for (int i = count; i > 0; i--)
+            {
+                tree.Insert(i, i);
+            }
+            Assert.IsTrue(isOK());
+        }
+
+        [TestMethod]
+        public void Balance_8_AllRandomSequence()
         {
             int count = 50000;
             Random rng = new Random();

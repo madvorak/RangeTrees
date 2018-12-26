@@ -43,7 +43,7 @@
 
         private void rebuild()
         {
-            // 1. traverse in-order to build an array (list) of points
+            // 1. in-order traverse to get an array of points
             int[] points = new int[Size];
             int index = 0;
             traverse(points, ref index);
@@ -52,10 +52,10 @@
             int middleIndex = points.Length / 2;
             coordY = points[middleIndex];
 
-            // 3. recursively build left subtree from the first half of the array
+            // 3. recursively build the left subtree from the first half of the array
             leftChild = Build(points, 0, middleIndex - 1);
 
-            // 4. recursively build right subtree from the second half of the array
+            // 4. recursively build the right subtree from the second half of the array
             rightChild = Build(points, middleIndex + 1, points.Length - 1);
         }
 
@@ -74,6 +74,7 @@
             }
         }
 
+        // may return null
         public static RangeNodeY Build(int[] ys, int start, int finish)
         {
             if (start > finish)
@@ -84,8 +85,8 @@
             int middle = (start + finish) / 2;
             return new RangeNodeY(ys[middle])
             {
-                leftChild = Build(ys, start, middle - 1),     // may be null
-                rightChild = Build(ys, middle + 1, finish),   // may be null
+                leftChild = Build(ys, start, middle - 1),
+                rightChild = Build(ys, middle + 1, finish),
                 Size = finish - start + 1
             };
         }

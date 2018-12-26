@@ -2,7 +2,7 @@
 
 namespace RangeTrees
 {
-    class Program
+    internal class Program
     {
         private static int currentSize = -1;
 

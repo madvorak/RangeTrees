@@ -49,7 +49,7 @@
 
         private void rebuild()
         {
-            // 1. traverse X-tree in-order to build an array (list) of points
+            // 1. in-order traverse the X-tree to get an array of points
             int[] pointsX = new int[Size];
             int[] pointsY = new int[Size];
             int index = 0;
@@ -59,12 +59,11 @@
             int middleIndex = pointsX.Length / 2;
             middleX = pointsX[middleIndex];
             storedY = pointsY[middleIndex]; 
-            int [] _;
 
-            // 3. recursively build left subtree from the first half of the array including Y-trees
-            leftChild = build(pointsX, pointsY, 0, middleIndex - 1, out _);
+            // 3. recursively build the left subtree (including Y-trees) from the first half of the array 
+            leftChild = build(pointsX, pointsY, 0, middleIndex - 1, out int[] _);
 
-            // 4. recursively build right subtree from the second half of the array including Y-trees
+            // 4. recursively build the right subtree (including Y-trees) from the second half of the array
             rightChild = build(pointsX, pointsY, middleIndex + 1, pointsX.Length - 1, out _);
         }
 
@@ -85,6 +84,7 @@
             }
         }
 
+        // may return null, but ys_sortedby_Y is never null (can be an array or zero length)
         private static RangeNodeX build(int[] xs_sortedby_X, int[] ys_sortedby_X,
             int start, int finish, out int[] ys_sortedby_Y)
         {
@@ -95,16 +95,14 @@
             }
 
             int middle = (start + finish) / 2;
-            int[] leftOut;
-            int[] rightOut;
 
             RangeNodeX node = new RangeNodeX(xs_sortedby_X[middle], ys_sortedby_X[middle])
             {
-                leftChild = build(xs_sortedby_X, ys_sortedby_X, start, middle - 1, out leftOut),     // may be null
-                rightChild = build(xs_sortedby_X, ys_sortedby_X, middle + 1, finish, out rightOut),   // may be null
+                leftChild = build(xs_sortedby_X, ys_sortedby_X, start, middle - 1, out int[] leftOut),
+                rightChild = build(xs_sortedby_X, ys_sortedby_X, middle + 1, finish, out int[] rightOut),
                 Size = finish - start + 1
             };
-       
+
             ys_sortedby_Y = merge(merge(leftOut, new int[1] { ys_sortedby_X[middle] }), rightOut);
             node.tree = RangeNodeY.Build(ys_sortedby_Y, 0, ys_sortedby_Y.Length - 1);
 
@@ -118,7 +116,7 @@
             int j = 0;
             while (i < left.Length && j < right.Length)
             {
-                if (left[i]< right[j])
+                if (left[i] < right[j])
                 {
                     result[i + j] = left[i];
                     i++;

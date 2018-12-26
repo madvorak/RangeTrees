@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace RangeTrees.Nodes
+﻿namespace RangeTrees.Nodes
 {
     internal class RangeNodeX : RangeNodeBase<RangeNodeX>
     {
@@ -72,16 +70,9 @@ namespace RangeTrees.Nodes
             int middleIndex = points.Length / 2;
             middleX = points[middleIndex].X;
             storedY = points[middleIndex].Y;
-            // TODO what about Y coordinates are not sorted !?
-            // should I sort them here?
-            // OMG nooooo !!!!!!! must sort Y coordinates only when right before calling build od Y-tree
-            // but isn't it inefficient ?????? yes, it is!
-            // possible solution: traverse Y-tree, find median by X, then "split" by the X and keep order by Y
-            // median by X (and medians in respective subtrees) can be found by X-tree traverse without any complicated algorithm
-            // ys values will have to be filtered every time recursion is called
 
+            int [] _;
             // 3. recursively build left subtree from the first half of the array including Y-trees
-            WorkingPoint[] _;
             leftChild = build(points, 0, middleIndex - 1, out _);
 
             // 4. recursively build right subtree from the second half of the array including Y-trees
@@ -103,17 +94,17 @@ namespace RangeTrees.Nodes
             }
         }
 
-        private static RangeNodeX build(WorkingPoint[] sortedByX, int start, int finish, out WorkingPoint[] sortedByY)
+        private static RangeNodeX build(WorkingPoint[] sortedByX, int start, int finish, out int[] sortedYs)
         {
             if (start > finish)
             {
-                sortedByY = new WorkingPoint[0];
+                sortedYs = new int[0];
                 return null;
             }
 
             int middle = (start + finish) / 2;
-            WorkingPoint[] leftOut;
-            WorkingPoint[] rightOut;
+            int[] leftOut;
+            int[] rightOut;
 
             RangeNodeX node = new RangeNodeX(sortedByX[middle].X, sortedByX[middle].Y)
             {
@@ -122,20 +113,20 @@ namespace RangeTrees.Nodes
                 Size = finish - start + 1
             };
 
-            sortedByY = merge(merge(leftOut, new WorkingPoint[1] { sortedByX[middle] }), rightOut);
-            node.tree = RangeNodeY.Build(sortedByY.Select(p => p.Y).ToArray(), 0, sortedByY.Length - 1);
+            sortedYs = merge(merge(leftOut, new int[1] { sortedByX[middle].Y }), rightOut);
+            node.tree = RangeNodeY.Build(sortedYs, 0, sortedYs.Length - 1);
 
             return node;
         }
 
-        private static WorkingPoint[] merge(WorkingPoint[] left, WorkingPoint[] right)
+        private static int[] merge(int[] left, int[] right)
         {
-            WorkingPoint[] result = new WorkingPoint[left.Length + right.Length];
+            int[] result = new int[left.Length + right.Length];
             int i = 0;
             int j = 0;
             while (i < left.Length && j < right.Length)
             {
-                if (left[i].Y < right[j].Y)
+                if (left[i]< right[j])
                 {
                     result[i + j] = left[i];
                     i++;

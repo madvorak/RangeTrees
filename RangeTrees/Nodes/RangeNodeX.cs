@@ -5,7 +5,7 @@
         private RangeNodeY tree;
         private int middleX;
         private int storedY;
-
+        
         public RangeNodeX(int x, int y)
         {
             middleX = x;
@@ -47,58 +47,50 @@
             }
         }
 
-        private class WorkingPoint
-        {
-            public int X;
-            public int Y;
-
-            public WorkingPoint(int x, int y)
-            {
-                X = x;
-                Y = y;
-            }
-        }
-
         private void rebuild()
         {
             // 1. traverse X-tree in-order to build an array (list) of points
-            WorkingPoint[] points = new WorkingPoint[Size];
+            int[] pointsX = new int[Size];
+            int[] pointsY = new int[Size];
             int index = 0;
-            traverse(points, ref index);
+            traverse(pointsX, pointsY, ref index);
 
             // 2. find the middle point and put it into this
-            int middleIndex = points.Length / 2;
-            middleX = points[middleIndex].X;
-            storedY = points[middleIndex].Y;
-
+            int middleIndex = pointsX.Length / 2;
+            middleX = pointsX[middleIndex];
+            storedY = pointsY[middleIndex]; 
             int [] _;
+
             // 3. recursively build left subtree from the first half of the array including Y-trees
-            leftChild = build(points, 0, middleIndex - 1, out _);
+            leftChild = build(pointsX, pointsY, 0, middleIndex - 1, out _);
 
             // 4. recursively build right subtree from the second half of the array including Y-trees
-            rightChild = build(points, middleIndex + 1, points.Length - 1, out _);
+            rightChild = build(pointsX, pointsY, middleIndex + 1, pointsX.Length - 1, out _);
         }
 
-        private void traverse(WorkingPoint[] pointArray, ref int index)
+        private void traverse(int[] xs, int[] ys, ref int index)
         {
             if (leftChild != null)
             {
-                leftChild.traverse(pointArray, ref index);
+                leftChild.traverse(xs, ys, ref index);
             }
 
-            pointArray[index++] = new WorkingPoint(middleX, storedY);
+            xs[index] = middleX;
+            ys[index] = storedY;
+            index++;
 
             if (rightChild != null)
             {
-                rightChild.traverse(pointArray, ref index);
+                rightChild.traverse(xs, ys, ref index);
             }
         }
 
-        private static RangeNodeX build(WorkingPoint[] sortedByX, int start, int finish, out int[] sortedYs)
+        private static RangeNodeX build(int[] xs_sortedby_X, int[] ys_sortedby_X,
+            int start, int finish, out int[] ys_sortedby_Y)
         {
             if (start > finish)
             {
-                sortedYs = new int[0];
+                ys_sortedby_Y = new int[0];
                 return null;
             }
 
@@ -106,15 +98,15 @@
             int[] leftOut;
             int[] rightOut;
 
-            RangeNodeX node = new RangeNodeX(sortedByX[middle].X, sortedByX[middle].Y)
+            RangeNodeX node = new RangeNodeX(xs_sortedby_X[middle], ys_sortedby_X[middle])
             {
-                leftChild = build(sortedByX, start, middle - 1, out leftOut),     // may be null
-                rightChild = build(sortedByX, middle + 1, finish, out rightOut),   // may be null
+                leftChild = build(xs_sortedby_X, ys_sortedby_X, start, middle - 1, out leftOut),     // may be null
+                rightChild = build(xs_sortedby_X, ys_sortedby_X, middle + 1, finish, out rightOut),   // may be null
                 Size = finish - start + 1
             };
-
-            sortedYs = merge(merge(leftOut, new int[1] { sortedByX[middle].Y }), rightOut);
-            node.tree = RangeNodeY.Build(sortedYs, 0, sortedYs.Length - 1);
+       
+            ys_sortedby_Y = merge(merge(leftOut, new int[1] { ys_sortedby_X[middle] }), rightOut);
+            node.tree = RangeNodeY.Build(ys_sortedby_Y, 0, ys_sortedby_Y.Length - 1);
 
             return node;
         }

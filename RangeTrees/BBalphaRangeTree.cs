@@ -5,6 +5,13 @@ namespace RangeTrees
     public class BBalphaRangeTree : IRangeTree
     {
         private RangeNodeX root;
+        private VisitsRegister visitsRegister;
+
+        public BBalphaRangeTree()
+        {
+            root = null;
+            visitsRegister = VisitsRegister.Instance;
+        }
 
         public void Insert(int x, int y)
         {
@@ -16,7 +23,7 @@ namespace RangeTrees
             {
                 root.Insert(x, y);
             }
-            RangeNodeBase<RangeNodeX>.RegisterInsertEnd();
+            visitsRegister.InsertEnded();
         }
 
         public int RangeCount(int xMin, int xMax, int yMin, int yMax)
@@ -30,7 +37,7 @@ namespace RangeTrees
             {
                 result = root.Query(xMin, xMax, yMin, yMax);
             }
-            RangeNodeBase<RangeNodeX>.RegisterQueryEnd();
+            visitsRegister.QueryEnded();
             return result;
         }
 

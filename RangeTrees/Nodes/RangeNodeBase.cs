@@ -72,42 +72,17 @@
 
 
 
-
-        private static int nVisitsQueryTotal = 0;
-        private static int nVisitsQueryMax = 0;
-        private static int nVisitsQueryNow = 0;
-        private static int nVisitsInsertTotal = 0;
-        private static int nVisitsInsertMax = 0;
-        private static int nVisitsInsertNow = 0;
+        // beware that static fields of generic classes in C# are not really static !!!
+        private static VisitsRegister visitsRegister = VisitsRegister.Instance;
 
         protected static void registerVisitByQuery()
         {
-            nVisitsQueryTotal++;
-            nVisitsQueryNow++;
+            visitsRegister.VisitedByQuery();
         }
 
         protected static void registerVisitByInsert()
         {
-            nVisitsInsertTotal++;
-            nVisitsInsertNow++;
-        }
-
-        public static void RegisterQueryEnd()
-        {
-            if (nVisitsQueryNow > nVisitsQueryMax)
-            {
-                nVisitsQueryMax = nVisitsQueryNow;
-            }
-            nVisitsQueryNow = 0;
-        }
-
-        public static void RegisterInsertEnd()
-        {
-            if (nVisitsInsertNow > nVisitsInsertMax)
-            {
-                nVisitsInsertMax = nVisitsInsertNow;
-            }
-            nVisitsInsertNow = 0;
+            visitsRegister.VisitedByInsert();
         }
     }
 }

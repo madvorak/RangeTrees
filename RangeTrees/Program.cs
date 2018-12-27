@@ -27,7 +27,8 @@ namespace RangeTrees
                         tree.Insert(int.Parse(tokens[1]), int.Parse(tokens[2]));
                         break;
                     case 'C':
-                        tree.RangeCount(int.Parse(tokens[1]), int.Parse(tokens[2]), int.Parse(tokens[3]), int.Parse(tokens[4]));
+                        tree.RangeCount(int.Parse(tokens[1]), int.Parse(tokens[2]),
+                            int.Parse(tokens[3]), int.Parse(tokens[4]));
                         break;
                 }
             }
@@ -36,10 +37,16 @@ namespace RangeTrees
 
         private static void printResults()
         {
-            // TODO
             if (currentSize > 0)
             {
-                Console.WriteLine($"{currentSize} {tree.RangeCount(int.MinValue, int.MaxValue, int.MinValue, int.MaxValue)}");
+                Console.Write($"{currentSize} ");
+                VisitsRegister visitsRegister = VisitsRegister.Instance;
+                Console.Write($"{visitsRegister.GetMaximumVisitedNodesByQuery()} ");
+                Console.Write($"{visitsRegister.GetAverageVisitedNodesByQuery():F3} ");
+                Console.Write($"{visitsRegister.GetMaximumVisitedNodesByInsert()} ");
+                Console.Write($"{visitsRegister.GetAverageVisitedNodesByInsert():F3} ");
+                Console.WriteLine(tree.RangeCount(
+                    int.MinValue, int.MaxValue, int.MinValue, int.MaxValue));
             }
         }
     }

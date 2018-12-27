@@ -16,18 +16,22 @@ namespace RangeTrees
             {
                 root.Insert(x, y);
             }
+            RangeNodeBase<RangeNodeX>.RegisterInsertEnd();
         }
 
         public int RangeCount(int xMin, int xMax, int yMin, int yMax)
         {
+            int result;
             if (root == null)
             {
-                return 0;
+                result = 0;
             }
             else
             {
-                return root.Query(xMin, xMax, yMin, yMax);
+                result = root.Query(xMin, xMax, yMin, yMax);
             }
+            RangeNodeBase<RangeNodeX>.RegisterQueryEnd();
+            return result;
         }
 
         // for testing purposes only

@@ -15,6 +15,8 @@
 
         public void Insert(int x, int y)
         {
+            registerVisitByInsert();
+
             if (x <= middleX)
             {
                 if (leftChild == null)
@@ -77,6 +79,7 @@
             xs[index] = middleX;
             ys[index] = storedY;
             index++;
+            registerVisitByInsert();
 
             if (rightChild != null)
             {
@@ -93,6 +96,8 @@
                 ys_sortedby_Y = new int[0];
                 return null;
             }
+
+            registerVisitByInsert();
 
             int middle = (start + finish) / 2;
 
@@ -142,6 +147,8 @@
 
         public int Query(int xMin, int xMax, int yMin, int yMax)
         {
+            registerVisitByQuery();
+
             if (middleX < xMin)
             {
                 if (rightChild == null)
@@ -175,6 +182,8 @@
 
         private int queryLeft(int xMin, int yMin, int yMax)
         {
+            registerVisitByQuery();
+
             if (middleX < xMin)
             {
                 if (rightChild == null)
@@ -200,6 +209,8 @@
 
         private int queryRight(int xMax, int yMin, int yMax)
         {
+            registerVisitByQuery();
+
             if (middleX > xMax)
             {
                 if (leftChild == null)

@@ -11,6 +11,8 @@
 
         public void Insert(int y)
         {
+            registerVisitByInsert();
+
             if (y <= coordY)
             {
                 if (leftChild == null)
@@ -67,6 +69,7 @@
             }
 
             ys[index++] = coordY;
+            registerVisitByInsert();
 
             if (rightChild != null)
             {
@@ -82,6 +85,8 @@
                 return null;
             }
 
+            registerVisitByInsert();
+
             int middle = (start + finish) / 2;
             return new RangeNodeY(ys[middle])
             {
@@ -93,6 +98,8 @@
 
         public int Query(int yMin, int yMax)
         {
+            registerVisitByQuery();
+
             if (coordY < yMin)
             {
                 if (rightChild == null)
@@ -127,6 +134,8 @@
 
         private int queryLeft(int yMin)
         {
+            registerVisitByQuery();
+
             if (coordY < yMin)
             {
                 if (rightChild == null)
@@ -153,6 +162,8 @@
 
         private int queryRight(int yMax)
         {
+            registerVisitByQuery();
+
             if (coordY > yMax)
             {
                 if (leftChild == null)

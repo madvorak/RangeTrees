@@ -17,10 +17,10 @@ namespace RangeUnitTests
         public void Init()
         {
             tree = new BBalphaRangeTree();
-            xLow = 300;
-            xHigh = 400;
-            yLow = 600;
-            yHigh = 900;
+            xLow = 3300;
+            xHigh = 4000;
+            yLow = 6600;
+            yHigh = 7700;
         }
 
         private int countRectangle()
@@ -368,6 +368,32 @@ namespace RangeUnitTests
                 }
             }
             Assert.AreEqual(inside, countRectangle());
+        }
+
+        [TestMethod]
+        public void Rectangle_27_ManyPointsRandomRepeated()
+        {
+            const int count = 50000;
+            int xStep = xHigh - xLow;
+            int yStep = yHigh - yLow;
+            int xStart = xLow - xStep;
+            int xStop = xHigh + xStep;
+            int yStart = yLow - yStep;
+            int yStop = yHigh + yStep;
+            Random rng = new Random();
+
+            int inside = 0;
+            for (int i = 0; i < count; i++)
+            {
+                int x = rng.Next(xStop - xStart) + xStart;
+                int y = rng.Next(yStop - yStart) + yStart;
+                tree.Insert(x, y);
+                if (x >= xLow && x <= xHigh && y >= yLow && y <= yHigh)
+                {
+                    inside++;
+                }
+                Assert.AreEqual(inside, countRectangle());
+            }
         }
     }
 }

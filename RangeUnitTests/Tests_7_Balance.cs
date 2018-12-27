@@ -33,7 +33,7 @@ namespace RangeUnitTests
             tree.Insert(1, 1);
             tree.Insert(4, 4);
             tree.Insert(3, 3);
-            // this test is useful only in DEBUG mode
+            // this test is useful only in DEBUG mode, alpha = 0.7
             Assert.IsTrue(isOK());
         }
         [TestMethod]
@@ -43,7 +43,7 @@ namespace RangeUnitTests
             tree.Insert(1, 2);
             tree.Insert(4, 3);
             tree.Insert(3, 4);
-            // this test is useful only in DEBUG mode
+            // this test is useful only in DEBUG mode, alpha = 0.7
             Assert.IsTrue(isOK());
         }
         [TestMethod]
@@ -53,7 +53,7 @@ namespace RangeUnitTests
             tree.Insert(2, 1);
             tree.Insert(3, 4);
             tree.Insert(4, 3);
-            // this test is useful only in DEBUG mode
+            // this test is useful only in DEBUG mode, alpha = 0.7
             Assert.IsTrue(isOK());
         }
         [TestMethod]
@@ -63,7 +63,7 @@ namespace RangeUnitTests
             tree.Insert(2, 2);
             tree.Insert(3, 3);
             tree.Insert(4, 4);
-            // this test is useful only in DEBUG mode
+            // this test is useful only in DEBUG mode, alpha = 0.7
             Assert.IsTrue(isOK());
         }
 

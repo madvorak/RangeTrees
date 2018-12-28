@@ -2,6 +2,9 @@
 {
     internal class VisitsRegister
     {
+        private static VisitsRegister instance;
+        public static VisitsRegister Instance => instance ?? (instance = new VisitsRegister());
+
         private int nVisitsQueryTotal;
         private int nVisitsQueryMax;
         private int nVisitsQueryNow;
@@ -13,6 +16,11 @@
 
         private VisitsRegister()
         {
+            Reset();
+        }
+
+        public void Reset()
+        {
             nVisitsQueryTotal = 0;
             nVisitsQueryMax = 0;
             nVisitsQueryNow = 0;
@@ -22,9 +30,6 @@
             nVisitsInsertNow = 0;
             insertCount = 0;
         }
-
-        private static VisitsRegister instance;
-        public static VisitsRegister Instance => instance ?? (instance = new VisitsRegister());
 
         public void VisitedByQuery()
         {

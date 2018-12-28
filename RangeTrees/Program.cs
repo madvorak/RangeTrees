@@ -47,6 +47,7 @@ namespace RangeTrees
                 Console.Write($"{visitsRegister.GetAverageVisitedNodesByInsert():F3} ");
                 Console.WriteLine(tree.RangeCount(
                     int.MinValue, int.MaxValue, int.MinValue, int.MaxValue));
+                visitsRegister.Reset();
             }
         }
     }

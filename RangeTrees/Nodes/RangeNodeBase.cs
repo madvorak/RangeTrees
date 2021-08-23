@@ -2,7 +2,7 @@
 {
     abstract internal class RangeNodeBase<T> where T : RangeNodeBase<T>
     {
-        private const double alpha = 0.7;
+        private const double alpha = 0.52;
 
         protected T leftChild;
         protected T rightChild;
